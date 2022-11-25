@@ -5,7 +5,6 @@ using namespace std;
 typedef struct HTNode {
   int weight;
   int parent, lchild, rchild;
-  char data;
 } HTNode, *HuffmanTree; // 定义结构体
 
 typedef char **HuffmanCode;
@@ -29,7 +28,7 @@ void Select(HuffmanTree HT, int len, int &s1, int &s2) {
        << "s2:" << s2 << ";" << endl;
 }; // 找两个最小权值结点的函数
 
-void CreateHuffmanTree(HuffmanTree &HT, int n) {
+void CreateHuffmanTree(HuffmanTree &HT, int n, int num[]) {
   if (n <= 1) {
     return;
   }
@@ -41,9 +40,8 @@ void CreateHuffmanTree(HuffmanTree &HT, int n) {
     HT[i].lchild = 0;
     HT[i].rchild = 0;
   }
-  cout << "请输入叶子结点的权值：" << endl;
   for (i = 1; i <= n; i++) {
-    cin >> HT[i].weight;
+    HT[i].weight = num[i];
   }
   for (i = n + 1; i <= m; i++) {
     Select(HT, i - 1, s1, s2);
@@ -79,19 +77,52 @@ void CreatHuffmanCode(HuffmanTree HT, HuffmanCode &HC, int n) {
   }
   delete[] cd;
 }
+//==============  ================
 void show(HuffmanTree HT, HuffmanCode HC) {
   for (int i = 1; i <= sizeof(HC) + 1; i++) {
     cout << "权值为" << HT[i].weight << "的结点编码为：" << HC[i] << endl;
   }
 }
+//==============  ================
+void Printe(HuffmanCode &HC, int l) {
+  string str = HC[l];
+  cout << str;
+}
+void change() {
+  cin.ignore();
+  char a[100];
+  cin.getline(a, 100);
+  int len = strlen(a);
+  for (int i = 0; i < len; i++) {
+    int l = a[i];
+    if (a[i] == ' ')
+      l = 27;
+    else if (l >= 97) {
+      l -= 96;
+    } else if (l < 97 && l >= 65) {
+      l -= 64;
+    }
+  }
+}
+//============== TODO================
 
+//============== decoding ================
+void decoding(HuffmanCode &HC, int n, string s) {
+  string temp = "";
+  char str[1000];
+  for (int i = 0; i < 1000; i++) {
+    str[i] =
+  }
+}
+//============== main ================
 int main(int argc, char *argv[]) {
   HuffmanTree HT;
   HuffmanCode HC;
   int n;
+  int num[100] = {0};
   cout << "请输入叶子结点的个数" << endl;
   cin >> n;
-  CreateHuffmanTree(HT, n);
+  CreateHuffmanTree(HT, n, num);
   CreatHuffmanCode(HT, HC, n);
   show(HT, HC);
   return 0;
