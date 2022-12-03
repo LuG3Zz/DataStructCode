@@ -209,6 +209,12 @@ int main(int argc, char *argv[]) {
   queue q = Create_Queue();
   Tree root = Create_Tree(q);
   table t = Create_Table(root);
+  bNode pn = t->first;
+  cout << "==============================" << endl;
+  while (pn != NULL) {
+    cout << pn->symbol << "的编码为：" << pn->code << endl;
+    pn = pn->next;
+  }
   char str[256];
   cout << "请输入要编码的字符：" << endl;
   cin >> str;
